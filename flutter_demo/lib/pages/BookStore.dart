@@ -38,6 +38,7 @@ class BookStoreState extends State<BookStore>
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -63,14 +64,16 @@ class BookStoreState extends State<BookStore>
             controller: _tabController,
             children: <Widget>[
               ListView(
-                children: <Widget>[
-                  Text('本地'),
-                  Text('本地'),
-                  Text('本地'),
-                  Text('本地'),
-                  Text('本地'),
-                  Text('本地'),
-                ],
+                itemExtent: 60,
+                children: List.generate(20, (index) {
+                  return new Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.red),
+                    ),
+                    child: Text("本地${index}"),
+                  );
+                }),
               ),
               Center(child: Text('网络获取')),
             ],

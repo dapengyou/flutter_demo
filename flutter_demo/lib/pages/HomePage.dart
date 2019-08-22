@@ -76,7 +76,7 @@ class HomePageState extends State<HomePage> {
         title: new Text("主页"),
       ),
       body: _bodys[_tabIndex],
-      backgroundColor: Colors.white70,
+      backgroundColor: Colors.blueGrey,
       bottomNavigationBar: new BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           new BottomNavigationBarItem(

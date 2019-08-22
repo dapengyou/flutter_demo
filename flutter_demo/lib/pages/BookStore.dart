@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BookStore extends StatefulWidget {
   @override
@@ -38,6 +39,8 @@ class BookStoreState extends State<BookStore>
     super.dispose();
   }
 
+  //创建list数据源
+  final items = List.generate(20, (index) => "本地$index");
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +66,26 @@ class BookStoreState extends State<BookStore>
           child: TabBarView(
             controller: _tabController,
             children: <Widget>[
-              ListView(
-                itemExtent: 60,
-                children: List.generate(20, (index) {
-                  return new Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.red),
-                    ),
-                    child: Text("本地${index}"),
+              new ListView.builder(
+                itemCount: items.length,
+                itemExtent: 90,
+                itemBuilder: (context, index) {
+//                  return new ListTile(
+//                    title: new Text('${items[index]}'),
+//                  );
+                  return GestureDetector(
+                    onTap: (){
+                      Fluttertoast.showToast(msg: '点击了${items[index]}');
+                    },
+                   child:   new Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.red),
+                        ),
+                        child: Text('${items[index]}'),
+                      ),
                   );
-                }),
+                },
               ),
               Center(child: Text('网络获取')),
             ],

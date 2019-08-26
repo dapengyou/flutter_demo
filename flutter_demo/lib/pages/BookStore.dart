@@ -1,6 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/models/Animate.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'package:http/http.dart' as http;
+
+import 'BookList.dart';
 
 class BookStore extends StatefulWidget {
   @override
@@ -29,7 +36,8 @@ class BookStoreState extends State<BookStore>
     _tabController = new TabController(
         vsync: this, //动画效果的异步处理，默认格式，背下来即可
         length: 2 //需要控制的Tab页数量
-        );
+    );
+//    getMovies();
   }
 
   //当整个页面dispose时，记得把控制器也dispose掉，释放内存
@@ -54,8 +62,8 @@ class BookStoreState extends State<BookStore>
         appBar: AppBar(
           title: TabBar(
             tabs: titleTabs,
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.white,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.black,
             controller: _tabController,
             isScrollable: true,
             indicator: UnderlineTabIndicator(
@@ -66,32 +74,32 @@ class BookStoreState extends State<BookStore>
           child: TabBarView(
             controller: _tabController,
             children: <Widget>[
-              new ListView.builder(
-                itemCount: items.length,
-                itemExtent: 90,
-                itemBuilder: (context, index) {
+          new ListView.builder(
+          itemCount: items.length,
+            itemExtent: 90,
+            itemBuilder: (context, index) {
 //                  return new ListTile(
 //                    title: new Text('${items[index]}'),
 //                  );
-                  return GestureDetector(
-                    onTap: (){
-                      Fluttertoast.showToast(msg: '点击了${items[index]}');
-                    },
-                   child:   new Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.red),
-                        ),
-                        child: Text('${items[index]}'),
-                      ),
-                  );
+              return GestureDetector(
+                onTap: () {
+                  Fluttertoast.showToast(msg: '点击了${items[index]}');
                 },
-              ),
-              Center(child: Text('网络获取')),
-            ],
+                child: new Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.red),
+                  ),
+                  child: Text('${items[index]}'),
+                ),
+              );
+            },
           ),
+
+          new BookList(),
+          ],
         ),
       ),
-    );
+    ),);
   }
 }
